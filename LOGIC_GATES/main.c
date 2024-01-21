@@ -61,7 +61,7 @@ int main()
 		input = input->next;
 
 	}
-	input->next = NULL;
+	input = NULL;
 	for (int i = 0; i < m; i++) {
 		output->name = malloc(9);
 		output->type = malloc(9);
@@ -71,7 +71,7 @@ int main()
 		scanf("%s%s%s%s",output->name ,output->type , output->name_a, output->name_b);
 		output = output->next;
 	}
-	output->next = NULL;
+	output = NULL;
 	output = logic_head;
 	for (int i = 0; i < m; i++) {
 		input = head;
@@ -83,23 +83,54 @@ int main()
 				b = input;
 			input = input->next;
 		}
-		printf("%s",output->name);
+		printf("%s ",output->name);
 		for (int j = 0; a->signal[j];j++)
 		{
 
 			switch (hash_func(output->type))
 			{
 				case 0:
-					if (a->signal[j] == b->signal[j])
+					if (a->signal[j] == '-' && b->signal[j] == '-')
 						putchar('-');
 					else
 						putchar('_');
-
+					break;
+				case 1:
+					if (a->signal[j] == '-' || b->signal[j] == '-')
+						putchar('-');
+					else
+						putchar('_');
+					break;
+				case 2:
+					if ((a->signal[j] == '-' && b->signal[j] != '-') || (a->signal[j] == '-' && b->signal[j] != '-'))
+						putchar('-');
+					else
+						putchar('_');
+					break;
+				case 3:
+					if (!(a->signal[j] == '-' && b->signal[j] == '-'))
+						putchar('-');
+					else
+						putchar('_');
+					break;
+				case 4:
+					if (!(a->signal[j] == '-' || b->signal[j] == '-'))
+						putchar('-');
+					else
+						putchar('_');
+					break;
+				case 5:
+					if (!((a->signal[j] == '-' && b->signal[j] != '-') || (a->signal[j] == '-' && b->signal[j] != '-')))
+						putchar('-');
+					else
+						putchar('_');
 					break;
 				default:
 					break;
 			}
 		}
+		printf("\n");
+		output = output->next;
 	}
 	return 0;
 }
