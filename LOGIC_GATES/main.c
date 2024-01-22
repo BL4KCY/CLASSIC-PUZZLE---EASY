@@ -55,23 +55,25 @@ int main()
 	for (int i = 0; i < n; i++) {
 		input->name = malloc(9);
 		input->signal = malloc(68);
-		input->next = malloc(sizeof(t_sig));
+		if (i + 1 == n)
+			input->next = NULL;
+		else
+			input->next = malloc(sizeof(t_sig));
 		scanf("%s%s", input->name, input->signal);
-
 		input = input->next;
-
 	}
-	input = NULL;
 	for (int i = 0; i < m; i++) {
 		output->name = malloc(9);
 		output->type = malloc(9);
 		output->name_a = malloc(9);
 		output->name_b = malloc(9);
-		output->next = malloc(sizeof(t_logic));
+		if (i + 1 == m)
+			output->next = NULL;
+		else
+			output->next = malloc(sizeof(t_logic));
 		scanf("%s%s%s%s",output->name ,output->type , output->name_a, output->name_b);
 		output = output->next;
 	}
-	output = NULL;
 	output = logic_head;
 	for (int i = 0; i < m; i++) {
 		input = head;
@@ -102,7 +104,7 @@ int main()
 						putchar('_');
 					break;
 				case 2:
-					if ((a->signal[j] == '-' && b->signal[j] != '-') || (a->signal[j] == '-' && b->signal[j] != '-'))
+					if ((a->signal[j] == '-' && b->signal[j] != '-') || (a->signal[j] != '-' && b->signal[j] == '-'))
 						putchar('-');
 					else
 						putchar('_');
@@ -120,7 +122,7 @@ int main()
 						putchar('_');
 					break;
 				case 5:
-					if (!((a->signal[j] == '-' && b->signal[j] != '-') || (a->signal[j] == '-' && b->signal[j] != '-')))
+					if (!((a->signal[j] == '-' && b->signal[j] != '-') || (a->signal[j] != '-' && b->signal[j] == '-')))
 						putchar('-');
 					else
 						putchar('_');
