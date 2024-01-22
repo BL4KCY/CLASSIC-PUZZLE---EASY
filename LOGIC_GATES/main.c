@@ -24,7 +24,6 @@ int main()
         input->input_signal = malloc(sizeof(char) * 65);
         input->next = malloc(sizeof(in_list));
         scanf("%s%s", input->input_name, input->input_signal);
-        //printf("%s\n", input->input_signal);
         input = input->next;
     }
     char res[65] = {0};
@@ -55,8 +54,6 @@ int main()
             }
             input = input->next;
         }
-        // printf("%s | ", input2->input_signal);
-        // printf("%s", input1->input_signal);
         //-------------------8<---------------------
         //the AND gate
         if (!strcmp(type, "AND"))
@@ -82,7 +79,7 @@ int main()
             }
         }
         //-------------------8<---------------------
-        //the OR gate
+        //the XOR gate
         if (!strcmp(type, "XOR"))
         {
             for (int i = 0; input1->input_signal[i]; i++)
@@ -95,7 +92,7 @@ int main()
             }
         }
         //-------------------8<---------------------
-        //the OR gate
+        //the XOR gate
         if (!strcmp(type, "XOR"))
         {
             for (int i = 0; input1->input_signal[i]; i++)
@@ -113,14 +110,23 @@ int main()
         {
             for (int i = 0; input1->input_signal[i]; i++)
             {
-                if (input2->input_signal[i] == '-' || input1->input_signal[i] == '-')
-                    res[i] = '_';
-                else
+                if (input2->input_signal[i] == '-' && input1->input_signal[i] == '-')
                     res[i] = '-';
+                else
+               
+                    res[i] = '_';
+            }
+            //the NOT gate
+            for (int i = 0; res[i]; i++)
+            {
+                if (res[i] == '_')
+                    res[i] = '-';
+                else
+                    res[i] = '_';
             }
         }
         //-------------------8<---------------------
-        //the NOR gate
+        //the NXOR gate
         if (!strcmp(type, "NXOR"))
         {
             for (int i = 0; input1->input_signal[i]; i++)
@@ -131,9 +137,36 @@ int main()
                 else
                     res[i] = '_';
             }
+            //the NOT gate
+            for (int i = 0; res[i]; i++)
+            {
+                if (res[i] == '_')
+                    res[i] = '-';
+                else
+                    res[i] = '_';
+            }
+        }
+        //-------------------8<---------------------
+        //the NOR gate
+        if (!strcmp(type, "NOR"))
+        {
+            for (int i = 0; input1->input_signal[i]; i++)
+            {
+                if (input2->input_signal[i] == '-' || input1->input_signal[i] == '-')
+                    res[i] = '-';
+                else
+                    res[i] = '_';
+            }
+            //the NOT gate
+            for (int i = 0; res[i]; i++)
+            {
+                if (res[i] == '_')
+                    res[i] = '-';
+                else
+                    res[i] = '_';
+            }
         }
         printf("%s\n",res);
     }
-
     return 0;
 }
